@@ -2,15 +2,16 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "commonjs",
-    "rootDir": ".",
+    "rootDir": "./src",
     "outDir": "./dist",
-    "esModuleInterop": true,           
+    "esModuleInterop": true,
+    "strictPropertyInitialization": false,           
     "strict": true,
     "experimentalDecorators": true,    
     "emitDecoratorMetadata": true,    
     "skipLibCheck": true,              
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*", "api/**/*"] , 
+  "include": ["src/**/*"] , 
   "exclude": ["node_modules"]
 }
