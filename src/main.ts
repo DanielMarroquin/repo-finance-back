@@ -1,24 +1,21 @@
 import { createExpressServer } from "routing-controllers";
 import 'dotenv/config';
 
-let PORT = 3002;
-
-// creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({
   cors: {
-    origin: 'http://localhost:4200',
+    origin: process.env.FRONTEND_URL || 'http://localhost:4200',
     credentials: true,
   },
   routePrefix: "/bp", 
-  controllers: [
-    __dirname + "/controllers/*{.js,.ts}",
-  ],
+  controllers: [__dirname + "/controllers/*{.js,.ts}"],
 });
 
+// Solo ejecuta app.listen() en entorno local (no en Vercel)
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3002;
+  app.listen(PORT, () => {
+    console.log(`Servidor Iniciado en http://localhost:${PORT}`);
+  });
+}
 
-// run express application on port 3000
-app.listen(PORT, () => {
-  console.log(`Servidor Iniciado`);
-  console.log(`Host: http://localhost:${PORT}`);
-  console.log(`Fecha/Hora: ${new Date().toLocaleString()}`);
-});
+export default app; // Exporta la app para Vercel
